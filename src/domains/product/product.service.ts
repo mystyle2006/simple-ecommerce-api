@@ -39,11 +39,26 @@ export class ProductService extends CommonService(ProductEntity) {
   }
 
   async findAll(): Promise<ProductEntity[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: [
+        'entity',
+        'entity.attributeValues',
+        'entity.attributeValues.attribute',
+      ],
+    });
   }
 
   async findOne(id: number): Promise<ProductEntity> {
-    return this.repository.findOne(id);
+    return this.repository.findOne({
+      relations: [
+        'entity',
+        'entity.attributeValues',
+        'entity.attributeValues.attribute',
+      ],
+      where: {
+        id,
+      },
+    });
   }
 
   async update(id: number, input: UpdateProductDto): Promise<UpdateResult> {

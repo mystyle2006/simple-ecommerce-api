@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { AttributeValueEntity } from './attribute-value.entity';
 
 @Entity('entity')
 export class EntityEntity {
@@ -10,4 +12,10 @@ export class EntityEntity {
 
   @Column()
   model_id: number;
+
+  @OneToMany(
+    () => AttributeValueEntity,
+    (attributeEntity) => attributeEntity.entity,
+  )
+  attributeValues: AttributeValueEntity[];
 }

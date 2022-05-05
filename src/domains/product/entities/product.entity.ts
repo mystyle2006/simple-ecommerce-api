@@ -1,7 +1,14 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { CommonEntity } from '../../../utils/common.entity';
+import { EntityEntity } from '../../eva/entities/entity.entity';
 
 @Entity('product')
 export class ProductEntity extends CommonEntity {
@@ -33,4 +40,8 @@ export class ProductEntity extends CommonEntity {
     },
   })
   categories: string;
+
+  @OneToOne(() => EntityEntity)
+  @JoinColumn({ name: 'entity_id' })
+  entity: EntityEntity;
 }
