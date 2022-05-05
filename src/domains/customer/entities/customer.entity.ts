@@ -1,7 +1,14 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { CommonEntity } from '../../../utils/common.entity';
+import { EntityEntity } from '../../eva/entities/entity.entity';
 
 @Entity('customer')
 export class CustomerEntity extends CommonEntity {
@@ -27,4 +34,8 @@ export class CustomerEntity extends CommonEntity {
   @Column({ select: false })
   @MinLength(8)
   password: string;
+
+  @OneToOne(() => EntityEntity)
+  @JoinColumn({ name: 'entity_id' })
+  entity: EntityEntity;
 }

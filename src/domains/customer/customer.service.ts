@@ -47,7 +47,16 @@ export class CustomerService extends CommonService(CustomerEntity) {
   }
 
   async findOne(id: number): Promise<CustomerEntity> {
-    return this.repository.findOne(id);
+    return this.repository.findOne({
+      relations: [
+        'entity',
+        'entity.attributeValues',
+        'entity.attributeValues.attribute',
+      ],
+      where: {
+        id,
+      },
+    });
   }
 
   async update(
