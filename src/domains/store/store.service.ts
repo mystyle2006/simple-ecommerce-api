@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CommonService } from '../../utils/common.service';
 import { CreateStoreDto } from './dto/create-store.dto';
@@ -15,8 +16,8 @@ export class StoreService extends CommonService(StoreEntity) {
     return this.repository.findOne(id);
   }
 
-  update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
+  update(id: number, updateStoreDto: UpdateStoreDto): Promise<UpdateResult> {
+    return this.repository.update(id, updateStoreDto);
   }
 
   remove(id: number) {

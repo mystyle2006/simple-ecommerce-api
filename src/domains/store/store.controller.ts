@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 
 import { CreateStoreDto } from './dto/create-store.dto';
@@ -34,13 +26,15 @@ export class StoreController {
     return this.storeService.findById(+id);
   }
 
+  @ApiBody({
+    schema: {
+      example: {
+        name: '',
+      },
+    },
+  })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStoreDto: UpdateStoreDto) {
+  update(@Param('id') id: number, @Body() updateStoreDto: UpdateStoreDto) {
     return this.storeService.update(+id, updateStoreDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.storeService.remove(+id);
   }
 }

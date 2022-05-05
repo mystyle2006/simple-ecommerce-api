@@ -1,5 +1,5 @@
-import { PartialType } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 
-import { CreateStoreDto } from './create-store.dto';
+import { StoreEntity } from '../entities/store.entity';
 
-export class UpdateStoreDto extends PartialType(CreateStoreDto) {}
+export class UpdateStoreDto extends PickType(StoreEntity, ['name'] as const) {}
