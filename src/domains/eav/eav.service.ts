@@ -4,8 +4,8 @@ import { DeleteResult, Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CreateCustomDataDto } from './dto/create-custom-data.dto';
-import { CreateEntityDto } from './dto/create-entity.dto';
 import { CreateEavDto } from './dto/create-eav.dto';
+import { CreateEntityDto } from './dto/create-entity.dto';
 import { GetAttributeValueDto } from './dto/get-attribute-value.dto';
 import { ReturnCustomDataDto } from './dto/return-custom-data.dto';
 import { ReturnUpdateCustomDataDto } from './dto/return-update-custom-data.dto';
