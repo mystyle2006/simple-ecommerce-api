@@ -1,23 +1,23 @@
 version: '3.1'
 services:
-#  simple-ecommerce-nestjs:
-#    container_name: simple-ecommerce-nestjs
-#    image: simple-ecommerce-nestjs:latest
-#    build:
-#      context: ../
-#      dockerfile: ../Dockerfile
-#    networks:
-#      - local-network
-#    ports:
-#      - 3000:3000
-#    depends_on:
-#      - simple-ecommerce-db
-#    environment:
-#      - RDS_HOSTNAME=simple-ecommerce-db
-#      - RDS_PORT=3306
-#      - RDS_DB_NAME=simple-ecommerce
-#      - RDS_USERNAME=root
-#      - RDS_PASSWORD=1234qwer
+  simple-ecommerce-nestjs:
+    container_name: simple-ecommerce-nestjs
+    image: simple-ecommerce-nestjs:latest
+    build:
+      context: ../
+      dockerfile: ../Dockerfile
+    networks:
+      - local-network
+    ports:
+      - 3000:3000
+    depends_on:
+      - simple-ecommerce-db
+    environment:
+      - RDS_HOSTNAME=simple-ecommerce-db
+      - RDS_PORT=3306
+      - RDS_DB_NAME=simple-ecommerce
+      - RDS_USERNAME=root
+      - RDS_PASSWORD=1234qwer
   simple-ecommerce-db:
     container_name: simple-ecommerce-db-local
     image: mysql:8.0.23
