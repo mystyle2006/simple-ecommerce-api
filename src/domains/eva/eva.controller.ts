@@ -80,8 +80,11 @@ export class EvaController {
     return this.evaService.update(+id, input);
   }
 
+  @ApiOperation({
+    summary: '사용자 정의 필드 삭제하기',
+  })
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.evaService.remove(+id);
   }
 }

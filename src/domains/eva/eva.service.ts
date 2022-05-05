@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CreateEvaDto } from './dto/create-eva.dto';
@@ -53,7 +53,7 @@ export class EvaService {
     return this.attributeEntityRepository.update(id, input);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} eva`;
+  async remove(id: number): Promise<DeleteResult> {
+    return this.attributeEntityRepository.delete(id);
   }
 }
