@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiOperation } from '@nestjs/swagger';
 
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
@@ -9,6 +9,9 @@ import { StoreService } from './store.service';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
+  @ApiOperation({
+    summary: '상점 생성하기',
+  })
   @ApiBody({
     schema: {
       example: {
@@ -21,11 +24,17 @@ export class StoreController {
     return this.storeService.create(input);
   }
 
+  @ApiOperation({
+    summary: '상점 가져오기',
+  })
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.storeService.findById(+id);
   }
 
+  @ApiOperation({
+    summary: '상점 수정하기',
+  })
   @ApiBody({
     schema: {
       example: {
