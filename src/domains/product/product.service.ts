@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CommonService } from '../../utils/common.service';
@@ -24,7 +25,7 @@ export class ProductService extends CommonService(ProductEntity) {
     return this.repository.update(id, input);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }

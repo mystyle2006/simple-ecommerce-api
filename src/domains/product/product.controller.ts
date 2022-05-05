@@ -51,6 +51,9 @@ export class ProductController {
     return this.productService.findOne(+id);
   }
 
+  @ApiOperation({
+    summary: '상품 수정하기',
+  })
   @ApiBody({
     schema: {
       example: {
@@ -65,8 +68,11 @@ export class ProductController {
     return this.productService.update(+id, input);
   }
 
+  @ApiOperation({
+    summary: '상품 삭제하기',
+  })
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.productService.remove(+id);
   }
 }
