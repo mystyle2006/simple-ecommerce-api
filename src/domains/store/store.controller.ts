@@ -29,14 +29,9 @@ export class StoreController {
     return this.storeService.create(input);
   }
 
-  @Get()
-  findAll() {
-    return this.storeService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.storeService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.storeService.findById(+id);
   }
 
   @Patch(':id')

@@ -11,12 +11,8 @@ export class StoreService extends CommonService(StoreEntity) {
     return this.repository.save(input as StoreEntity);
   }
 
-  findAll() {
-    return `This action returns all store`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
+  async findById(id: number): Promise<StoreEntity> {
+    return this.repository.findOne(id);
   }
 
   update(id: number, updateStoreDto: UpdateStoreDto) {
