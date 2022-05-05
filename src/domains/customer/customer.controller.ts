@@ -27,20 +27,22 @@ export class CustomerController {
       },
     },
   })
+  @ApiOperation({
+    summary: '회원가입',
+  })
   @Post()
   create(@Body() createCustomerDto: CreateCustomerDto) {
     return this.customerService.create(createCustomerDto);
   }
 
-  @Get(':id')
   @ApiOperation({
     summary: '나의 정보 가져오기',
   })
+  @Get(':id')
   findOne(@Param('id') id: number) {
     return this.customerService.findOne(+id);
   }
 
-  @Patch(':id')
   @ApiBody({
     schema: {
       example: {
@@ -51,6 +53,7 @@ export class CustomerController {
   @ApiOperation({
     summary: '나의 정보 수정하기',
   })
+  @Patch(':id')
   update(@Param('id') id: string, @Body() input: UpdateCustomerDto) {
     return this.customerService.update(+id, input);
   }
