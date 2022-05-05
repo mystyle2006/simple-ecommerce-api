@@ -41,15 +41,17 @@ export class CustomerController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCustomerDto: UpdateCustomerDto,
-  ) {
-    return this.customerService.update(+id, updateCustomerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+  @ApiBody({
+    schema: {
+      example: {
+        name: '',
+      },
+    },
+  })
+  @ApiOperation({
+    summary: '나의 정보 수정하기',
+  })
+  update(@Param('id') id: string, @Body() input: UpdateCustomerDto) {
+    return this.customerService.update(+id, input);
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CommonService } from '../../utils/common.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -22,8 +23,8 @@ export class CustomerService extends CommonService(CustomerEntity) {
     return this.repository.findOne(id);
   }
 
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
+  async update(id: number, input: UpdateCustomerDto): Promise<UpdateResult> {
+    return this.repository.update(id, input);
   }
 
   remove(id: number) {
