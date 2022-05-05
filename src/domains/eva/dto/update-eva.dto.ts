@@ -1,5 +1,5 @@
-import { PartialType } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 
-import { CreateEvaDto } from './create-eva.dto';
+import { AttributeEntity } from '../entities/attribute.entity';
 
-export class UpdateEvaDto extends PartialType(CreateEvaDto) {}
+export class UpdateEvaDto extends PickType(AttributeEntity, ['name']) {}

@@ -64,9 +64,20 @@ export class EvaController {
     return this.evaService.findEVAByModel(+model_id, +store_id);
   }
 
+  @ApiOperation({
+    summary: '사용자 정의 필드 수정하기',
+  })
+  @ApiBody({
+    schema: {
+      example: {
+        name: '',
+        type: AttributeTypeEnum.STRING,
+      },
+    },
+  })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEvaDto: UpdateEvaDto) {
-    return this.evaService.update(+id, updateEvaDto);
+  update(@Param('id') id: number, @Body() input: UpdateEvaDto) {
+    return this.evaService.update(+id, input);
   }
 
   @Delete(':id')

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CreateEvaDto } from './dto/create-eva.dto';
 import { UpdateEvaDto } from './dto/update-eva.dto';
@@ -48,8 +49,8 @@ export class EvaService {
     });
   }
 
-  update(id: number, updateEvaDto: UpdateEvaDto) {
-    return `This action updates a #${id} eva`;
+  async update(id: number, input: UpdateEvaDto): Promise<UpdateResult> {
+    return this.attributeEntityRepository.update(id, input);
   }
 
   remove(id: number) {
