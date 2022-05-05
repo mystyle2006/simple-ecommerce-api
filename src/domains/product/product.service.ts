@@ -11,12 +11,12 @@ export class ProductService extends CommonService(ProductEntity) {
     return this.repository.save(input as ProductEntity);
   }
 
-  findAll() {
-    return `This action returns all product`;
+  async findAll(): Promise<ProductEntity[]> {
+    return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number): Promise<ProductEntity> {
+    return this.repository.findOne(id);
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

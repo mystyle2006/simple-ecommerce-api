@@ -35,13 +35,19 @@ export class ProductController {
     return this.productService.create(input);
   }
 
+  @ApiOperation({
+    summary: '상품 목록 가져오기',
+  })
   @Get()
   findAll() {
     return this.productService.findAll();
   }
 
+  @ApiOperation({
+    summary: '상품 가져오기',
+  })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.productService.findOne(+id);
   }
 
