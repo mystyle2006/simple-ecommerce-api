@@ -46,6 +46,14 @@ export class CustomerController {
     schema: {
       example: {
         name: '',
+        customData: [
+          {
+            id: 1,
+            attribute_id: 1,
+            entity_id: 2,
+            value: '',
+          },
+        ],
       },
     },
   })

@@ -50,8 +50,22 @@ export class CustomerService extends CommonService(CustomerEntity) {
     return this.repository.findOne(id);
   }
 
-  async update(id: number, input: UpdateCustomerDto): Promise<UpdateResult> {
-    return this.repository.update(id, input);
+  async update(
+    id: number,
+    { customData, ...leftover }: UpdateCustomerDto,
+  ): Promise<UpdateResult> {
+    const product = await this.repository.findOne(id);
+    const { entity_id } = await this.evaService.updateCustomData({
+      data: customData,
+      store_id: product.store_id,
+      entity_id: product.entity_id,
+      modelName: ModelNameEnum.CUSTOMER,
+    });
+
+    return this.repository.update(id, {
+      ...leftover,
+      entity_id,
+    });
   }
 
   remove(id: number) {
