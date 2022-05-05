@@ -1,16 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation } from '@nestjs/swagger';
 
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrderService } from './order.service';
 
 @Controller('order')
@@ -45,13 +36,11 @@ export class OrderController {
     return this.orderService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(+id);
+  @ApiOperation({
+    summary: '주문 취소하기',
+  })
+  @Patch('/cancel/:id')
+  update(@Param('id') id: string) {
+    return this.orderService.update(+id);
   }
 }
