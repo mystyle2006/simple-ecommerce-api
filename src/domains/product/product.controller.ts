@@ -51,9 +51,18 @@ export class ProductController {
     return this.productService.findOne(+id);
   }
 
+  @ApiBody({
+    schema: {
+      example: {
+        name: '',
+        price: 0,
+        categories: [],
+      },
+    },
+  })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+  update(@Param('id') id: string, @Body() input: UpdateProductDto) {
+    return this.productService.update(+id, input);
   }
 
   @Delete(':id')
