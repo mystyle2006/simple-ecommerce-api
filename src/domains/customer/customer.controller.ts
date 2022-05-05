@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiOperation } from '@nestjs/swagger';
 
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -32,13 +32,11 @@ export class CustomerController {
     return this.customerService.create(createCustomerDto);
   }
 
-  @Get()
-  findAll() {
-    return this.customerService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  @ApiOperation({
+    summary: '나의 정보 가져오기',
+  })
+  findOne(@Param('id') id: number) {
     return this.customerService.findOne(+id);
   }
 
