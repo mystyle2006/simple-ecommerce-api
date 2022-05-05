@@ -14,12 +14,8 @@ export class OrderService extends CommonService(OrderEntity) {
     } as OrderEntity);
   }
 
-  findAll() {
-    return `This action returns all order`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findAll(): Promise<OrderEntity[]> {
+    return this.repository.find();
   }
 
   update(id: number) {

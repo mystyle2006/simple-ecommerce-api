@@ -26,14 +26,12 @@ export class OrderController {
     return this.orderService.create(input);
   }
 
+  @ApiOperation({
+    summary: '주문 목록 가져오기',
+  })
   @Get()
   findAll() {
     return this.orderService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
   }
 
   @ApiOperation({
