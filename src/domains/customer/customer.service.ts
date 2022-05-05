@@ -29,7 +29,7 @@ export class CustomerService extends CommonService(CustomerEntity) {
         await this.evaService.createCustomData({
           data: customData,
           store_id: leftover.store_id,
-          modelName: ModelNameEnum.PRODUCT,
+          modelName: ModelNameEnum.CUSTOMER,
         });
 
       if (entity_id) {
@@ -63,11 +63,11 @@ export class CustomerService extends CommonService(CustomerEntity) {
     id: number,
     { customData, ...leftover }: UpdateCustomerDto,
   ): Promise<UpdateResult> {
-    const product = await this.repository.findOne(id);
+    const customer = await this.repository.findOne(id);
     const { entity_id } = await this.evaService.updateCustomData({
       data: customData,
-      store_id: product.store_id,
-      entity_id: product.entity_id,
+      store_id: customer.store_id,
+      entity_id: customer.entity_id,
       modelName: ModelNameEnum.CUSTOMER,
     });
 

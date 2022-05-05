@@ -127,11 +127,11 @@ export class EvaService {
     const createData = data.filter((d) => !d.id);
     const updateData = data.filter((d) => d.id);
     if (createData.length) {
-      await this.createAttributeValues(entity_id, data);
+      await this.createAttributeValues(entity_id, createData);
     }
 
     if (updateData.length) {
-      await this.updateAttributeValues(data);
+      await this.updateAttributeValues(updateData);
     }
 
     return {
