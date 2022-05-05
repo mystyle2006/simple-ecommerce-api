@@ -16,12 +16,12 @@ export class EvaService {
     private readonly attributeEntityRepository: Repository<AttributeEntity>,
   ) {}
 
-  create(createEvaDto: CreateEvaDto) {
-    return 'This action adds a new eva';
+  async create(createEvaDto: CreateEvaDto): Promise<AttributeEntity> {
+    return this.attributeEntityRepository.save(createEvaDto as AttributeEntity);
   }
 
-  findAll() {
-    return `This action returns all eva`;
+  async findModels(): Promise<ModelEntity[]> {
+    return this.modelRepository.find();
   }
 
   async findEVA(store_id: number): Promise<ModelEntity[]> {
@@ -34,6 +34,18 @@ export class EvaService {
         { store_id },
       )
       .getMany();
+  }
+
+  async findEVAByModel(
+    model_id: number,
+    store_id: number,
+  ): Promise<AttributeEntity[]> {
+    return this.attributeEntityRepository.find({
+      where: {
+        model_id,
+        store_id,
+      },
+    });
   }
 
   update(id: number, updateEvaDto: UpdateEvaDto) {

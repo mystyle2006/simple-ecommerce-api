@@ -7,24 +7,42 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { AttributeTypeEnum } from '../../enums/attribute-type.enum';
 import { CreateEvaDto } from './dto/create-eva.dto';
 import { UpdateEvaDto } from './dto/update-eva.dto';
 import { EvaService } from './eva.service';
 
+@ApiTags('사용자 정의 필드')
 @Controller('eva')
 export class EvaController {
   constructor(private readonly evaService: EvaService) {}
 
+  @ApiOperation({
+    summary: '사용자 정의 필드 추가하기',
+  })
+  @ApiBody({
+    schema: {
+      example: {
+        store_id: 0,
+        model_id: 0,
+        name: '',
+        type: AttributeTypeEnum.STRING,
+      },
+    },
+  })
   @Post()
-  create(@Body() createEvaDto: CreateEvaDto) {
-    return this.evaService.create(createEvaDto);
+  create(@Body() input: CreateEvaDto) {
+    return this.evaService.create(input);
   }
 
+  @ApiOperation({
+    summary: '상점 별 사용자 정의 모델 목록 가져오기',
+  })
   @Get()
-  findAll() {
-    return this.evaService.findAll();
+  findModels() {
+    return this.evaService.findModels();
   }
 
   @ApiOperation({
@@ -33,6 +51,17 @@ export class EvaController {
   @Get(':store_id')
   findEVA(@Param('store_id') store_id: number) {
     return this.evaService.findEVA(+store_id);
+  }
+
+  @ApiOperation({
+    summary: '상점 별 특정 모델의 사용자 정의 필드 목록 가져오기',
+  })
+  @Get(':model_id/:store_id')
+  findEVAByModel(
+    @Param('model_id') model_id: number,
+    @Param('store_id') store_id: number,
+  ) {
+    return this.evaService.findEVAByModel(+model_id, +store_id);
   }
 
   @Patch(':id')
