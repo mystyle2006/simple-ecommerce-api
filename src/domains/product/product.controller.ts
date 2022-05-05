@@ -67,6 +67,14 @@ export class ProductController {
         name: '',
         price: 0,
         categories: [],
+        customData: [
+          {
+            id: 1,
+            attribute_id: 1,
+            entity_id: 2,
+            value: '',
+          },
+        ],
       },
     },
   })

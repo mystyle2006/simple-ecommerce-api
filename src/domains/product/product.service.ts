@@ -61,8 +61,22 @@ export class ProductService extends CommonService(ProductEntity) {
     });
   }
 
-  async update(id: number, input: UpdateProductDto): Promise<UpdateResult> {
-    return this.repository.update(id, input);
+  async update(
+    id: number,
+    { customData, ...leftover }: UpdateProductDto,
+  ): Promise<UpdateResult> {
+    const product = await this.repository.findOne(id);
+    const { entity_id } = await this.evaService.updateCustomData({
+      data: customData,
+      store_id: product.store_id,
+      entity_id: product.entity_id,
+      modelName: ModelNameEnum.PRODUCT,
+    });
+
+    return this.repository.update(id, {
+      ...leftover,
+      entity_id,
+    });
   }
 
   async remove(id: number): Promise<DeleteResult> {

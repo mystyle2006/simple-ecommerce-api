@@ -3,12 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
-import { ModelNameEnum } from '../../enums/model-name.enum';
 import { CreateCustomDataDto } from './dto/create-custom-data.dto';
 import { CreateEntityDto } from './dto/create-entity.dto';
 import { CreateEvaDto } from './dto/create-eva.dto';
 import { GetAttributeValueDto } from './dto/get-attribute-value.dto';
 import { ReturnCustomDataDto } from './dto/return-custom-data.dto';
+import { ReturnUpdateCustomDataDto } from './dto/return-update-custom-data.dto';
+import { UpdateCustomDataDto } from './dto/update-custom-data.dto';
 import { UpdateEvaDto } from './dto/update-eva.dto';
 import { AttributeEntity } from './entities/attribute.entity';
 import { AttributeValueEntity } from './entities/attribute-value.entity';
@@ -43,6 +44,16 @@ export class EvaService {
           value: data.value,
           entity_id,
         } as AttributeValueEntity),
+      ),
+    );
+  }
+
+  async updateAttributeValues(
+    data: AttributeValueEntity[],
+  ): Promise<UpdateResult[]> {
+    return Promise.all(
+      data.map((d) =>
+        this.attributeValueEntityRepository.update(d.id, { value: d.value }),
       ),
     );
   }
@@ -93,6 +104,39 @@ export class EvaService {
 
   async remove(id: number): Promise<DeleteResult> {
     return this.attributeEntityRepository.delete(id);
+  }
+
+  async updateCustomData({
+    store_id,
+    entity_id,
+    data,
+    modelName,
+  }: UpdateCustomDataDto): Promise<ReturnUpdateCustomDataDto> {
+    if (!entity_id) {
+      const model = await this.findModelByName(modelName);
+      const { id: entity_id } = await this.createEntity({
+        store_id,
+        model_id: model.id,
+      });
+      await this.createAttributeValues(entity_id, data);
+      return {
+        entity_id,
+      };
+    }
+
+    const createData = data.filter((d) => !d.id);
+    const updateData = data.filter((d) => d.id);
+    if (createData.length) {
+      await this.createAttributeValues(entity_id, data);
+    }
+
+    if (updateData.length) {
+      await this.updateAttributeValues(data);
+    }
+
+    return {
+      entity_id,
+    };
   }
 
   async createCustomData({
