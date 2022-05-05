@@ -28,6 +28,12 @@ export class ProductController {
         store_id: 0,
         price: 0,
         categories: [],
+        customData: [
+          {
+            attribute_id: 0,
+            value: '',
+          },
+        ],
       },
     },
   })

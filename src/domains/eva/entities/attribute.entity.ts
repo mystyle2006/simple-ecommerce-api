@@ -15,10 +15,10 @@ export class AttributeEntity {
   id: number;
 
   @Column()
-  model_id: string;
+  model_id: number;
 
   @Column()
-  store_id: string;
+  store_id: number;
 
   @Column()
   type: AttributeTypeEnum;

@@ -13,6 +13,9 @@ export class ProductEntity extends CommonEntity {
   store_id: number;
 
   @Column()
+  entity_id: number;
+
+  @Column()
   @IsNotEmpty()
   name: string;
 
