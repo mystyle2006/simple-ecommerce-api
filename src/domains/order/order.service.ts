@@ -41,7 +41,13 @@ export class OrderService extends CommonService(OrderEntity) {
   }
 
   async findAll(): Promise<OrderEntity[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: [
+        'entity',
+        'entity.attributeValues',
+        'entity.attributeValues.attribute',
+      ],
+    });
   }
 
   update(id: number) {
