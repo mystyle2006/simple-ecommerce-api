@@ -1,8 +1,28 @@
 version: '3.1'
 services:
-  notice-board-db:
+  simple-ecommerce-nestjs:
+    container_name: simple-ecommerce-nestjs
+    image: simple-ecommerce-nestjs:latest
+    build:
+      context: ../
+      dockerfile: ../Dockerfile
+    networks:
+      - local-network
+    ports:
+      - 3000:3000
+    depends_on:
+      - simple-ecommerce-db
+    environment:
+      - RDS_HOSTNAME=simple-ecommerce-db
+      - RDS_PORT=3306
+      - RDS_DB_NAME=simple-ecommerce
+      - RDS_USERNAME=root
+      - RDS_PASSWORD=1234qwer
+  simple-ecommerce-db:
     container_name: simple-ecommerce-db-local
     image: mysql:8.0.23
+    networks:
+      - local-network
     volumes:
       - ./mysql/:/var/lib/mysql/
     environment:
@@ -12,3 +32,5 @@ services:
     ports:
       - 3316:3306
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp --sql_mode=IGNORE_SPACE --max_connections=10000 --wait_timeout=60000 --default_authentication_plugin=mysql_native_password
+networks:
+  local-network:
