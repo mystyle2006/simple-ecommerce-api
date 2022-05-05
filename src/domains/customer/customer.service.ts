@@ -1,19 +1,46 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
+import { ModelNameEnum } from '../../enums/model-name.enum';
 import { CommonService } from '../../utils/common.service';
+import { EvaService } from '../eva/eva.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { ReturnCustomerDto } from './dto/return-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { CustomerEntity } from './entities/customer.entity';
 
 @Injectable()
 export class CustomerService extends CommonService(CustomerEntity) {
-  async create(createCustomerDto: CreateCustomerDto): Promise<CustomerEntity> {
+  constructor(private readonly evaService: EvaService) {
+    super();
+  }
+
+  async create({
+    customData,
+    ...leftover
+  }: CreateCustomerDto): Promise<ReturnCustomerDto> {
     try {
-      const customer = await this.repository.save(
-        createCustomerDto as CustomerEntity,
+      const { id: customer_id } = await this.repository.save(
+        leftover as CustomerEntity,
       );
-      return this.repository.findOne(customer.id);
+      const customer = await this.repository.findOne(customer_id);
+
+      const { entity_id, result: customDataResult } =
+        await this.evaService.createCustomData({
+          data: customData,
+          store_id: leftover.store_id,
+          modelName: ModelNameEnum.PRODUCT,
+        });
+
+      if (entity_id) {
+        await this.repository.update(customer_id, { entity_id });
+      }
+
+      return {
+        ...customer,
+        entity_id,
+        customData: customDataResult,
+      };
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

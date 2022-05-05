@@ -13,6 +13,9 @@ export class CustomerEntity extends CommonEntity {
   name: string;
 
   @Column()
+  entity_id: number;
+
+  @Column()
   @IsNotEmpty()
   store_id: number;
 

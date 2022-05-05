@@ -1,14 +1,13 @@
 import { PickType } from '@nestjs/swagger';
 
 import { AttributeValueEntity } from '../../eva/entities/attribute-value.entity';
-import { ProductEntity } from '../entities/product.entity';
+import { CustomerEntity } from '../entities/customer.entity';
 
-export class ReturnProductDto extends PickType(ProductEntity, [
+export class ReturnCustomerDto extends PickType(CustomerEntity, [
   'name',
-  'price',
   'entity_id',
   'store_id',
-  'categories',
+  'email',
 ] as const) {
   customData: AttributeValueEntity[];
 }

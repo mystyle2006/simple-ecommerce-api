@@ -15,6 +15,7 @@ export class ProductService extends CommonService(ProductEntity) {
   constructor(private readonly evaService: EvaService) {
     super();
   }
+
   async create({
     customData,
     ...leftover

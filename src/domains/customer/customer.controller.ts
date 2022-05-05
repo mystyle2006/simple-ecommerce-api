@@ -17,6 +17,12 @@ export class CustomerController {
         store_id: 0,
         email: '',
         password: '',
+        customData: [
+          {
+            attribute_id: 0,
+            value: '',
+          },
+        ],
       },
     },
   })

@@ -1,5 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 
+import { GetAttributeValueDto } from '../../eva/dto/get-attribute-value.dto';
 import { CustomerEntity } from '../entities/customer.entity';
 
 export class CreateCustomerDto extends PickType(CustomerEntity, [
@@ -7,4 +8,6 @@ export class CreateCustomerDto extends PickType(CustomerEntity, [
   'password',
   'email',
   'store_id',
-] as const) {}
+] as const) {
+  customData: GetAttributeValueDto[];
+}
