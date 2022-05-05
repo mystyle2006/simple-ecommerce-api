@@ -5,8 +5,8 @@ import { AttributeEntity } from './entities/attribute.entity';
 import { AttributeValueEntity } from './entities/attribute-value.entity';
 import { EntityEntity } from './entities/entity.entity';
 import { ModelEntity } from './entities/model.entity';
-import { EvaController } from './eva.controller';
-import { EvaService } from './eva.service';
+import { EavController } from './eav.controller';
+import { EavService } from './eav.service';
 
 @Module({
   imports: [
@@ -17,8 +17,8 @@ import { EvaService } from './eva.service';
       AttributeValueEntity,
     ]),
   ],
-  controllers: [EvaController],
-  providers: [EvaService],
-  exports: [EvaService],
+  controllers: [EavController],
+  providers: [EavService],
+  exports: [EavService],
 })
-export class EvaModule {}
+export class EavModule {}

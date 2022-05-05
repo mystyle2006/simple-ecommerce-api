@@ -1,4 +1,4 @@
-import { AttributeValueEntity } from '../../eva/entities/attribute-value.entity';
+import { AttributeValueEntity } from '../../eav/entities/attribute-value.entity';
 
 export class UpdateCustomerDto {
   name?: string;

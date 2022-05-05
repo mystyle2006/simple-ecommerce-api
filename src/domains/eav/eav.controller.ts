@@ -10,14 +10,14 @@ import {
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AttributeTypeEnum } from '../../enums/attribute-type.enum';
-import { CreateEvaDto } from './dto/create-eva.dto';
-import { UpdateEvaDto } from './dto/update-eva.dto';
-import { EvaService } from './eva.service';
+import { CreateEavDto } from './dto/create-eav.dto';
+import { UpdateEavDto } from './dto/update-eav.dto';
+import { EavService } from './eav.service';
 
 @ApiTags('사용자 정의 필드')
-@Controller('eva')
-export class EvaController {
-  constructor(private readonly evaService: EvaService) {}
+@Controller('eav')
+export class EavController {
+  constructor(private readonly evaService: EavService) {}
 
   @ApiOperation({
     summary: '사용자 정의 필드 추가하기',
@@ -33,7 +33,7 @@ export class EvaController {
     },
   })
   @Post()
-  create(@Body() input: CreateEvaDto) {
+  create(@Body() input: CreateEavDto) {
     return this.evaService.create(input);
   }
 
@@ -76,7 +76,7 @@ export class EvaController {
     },
   })
   @Patch(':id')
-  update(@Param('id') id: number, @Body() input: UpdateEvaDto) {
+  update(@Param('id') id: number, @Body() input: UpdateEavDto) {
     return this.evaService.update(+id, input);
   }
 

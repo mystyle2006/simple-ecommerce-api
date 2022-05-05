@@ -5,19 +5,19 @@ import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { CreateCustomDataDto } from './dto/create-custom-data.dto';
 import { CreateEntityDto } from './dto/create-entity.dto';
-import { CreateEvaDto } from './dto/create-eva.dto';
+import { CreateEavDto } from './dto/create-eav.dto';
 import { GetAttributeValueDto } from './dto/get-attribute-value.dto';
 import { ReturnCustomDataDto } from './dto/return-custom-data.dto';
 import { ReturnUpdateCustomDataDto } from './dto/return-update-custom-data.dto';
 import { UpdateCustomDataDto } from './dto/update-custom-data.dto';
-import { UpdateEvaDto } from './dto/update-eva.dto';
+import { UpdateEavDto } from './dto/update-eav.dto';
 import { AttributeEntity } from './entities/attribute.entity';
 import { AttributeValueEntity } from './entities/attribute-value.entity';
 import { EntityEntity } from './entities/entity.entity';
 import { ModelEntity } from './entities/model.entity';
 
 @Injectable()
-export class EvaService {
+export class EavService {
   constructor(
     @InjectRepository(ModelEntity)
     private readonly modelRepository: Repository<ModelEntity>,
@@ -58,7 +58,7 @@ export class EvaService {
     );
   }
 
-  async create(createEvaDto: CreateEvaDto): Promise<AttributeEntity> {
+  async create(createEvaDto: CreateEavDto): Promise<AttributeEntity> {
     return this.attributeEntityRepository.save(createEvaDto as AttributeEntity);
   }
 
@@ -98,7 +98,7 @@ export class EvaService {
     });
   }
 
-  async update(id: number, input: UpdateEvaDto): Promise<UpdateResult> {
+  async update(id: number, input: UpdateEavDto): Promise<UpdateResult> {
     return this.attributeEntityRepository.update(id, input);
   }
 

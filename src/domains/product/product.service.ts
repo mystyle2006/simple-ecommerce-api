@@ -4,7 +4,7 @@ import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { ModelNameEnum } from '../../enums/model-name.enum';
 import { CommonService } from '../../utils/common.service';
-import { EvaService } from '../eva/eva.service';
+import { EavService } from '../eav/eav.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ReturnProductDto } from './dto/return-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -12,7 +12,7 @@ import { ProductEntity } from './entities/product.entity';
 
 @Injectable()
 export class ProductService extends CommonService(ProductEntity) {
-  constructor(private readonly evaService: EvaService) {
+  constructor(private readonly evaService: EavService) {
     super();
   }
 

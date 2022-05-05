@@ -3,7 +3,7 @@ import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 import { ModelNameEnum } from '../../enums/model-name.enum';
 import { CommonService } from '../../utils/common.service';
-import { EvaService } from '../eva/eva.service';
+import { EavService } from '../eav/eav.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { ReturnCustomerDto } from './dto/return-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -11,7 +11,7 @@ import { CustomerEntity } from './entities/customer.entity';
 
 @Injectable()
 export class CustomerService extends CommonService(CustomerEntity) {
-  constructor(private readonly evaService: EvaService) {
+  constructor(private readonly evaService: EavService) {
     super();
   }
 

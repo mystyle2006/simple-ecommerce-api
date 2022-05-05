@@ -1,6 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 
-import { AttributeValueEntity } from '../../eva/entities/attribute-value.entity';
+import { AttributeValueEntity } from '../../eav/entities/attribute-value.entity';
 import { CustomerEntity } from '../entities/customer.entity';
 
 export class ReturnCustomerDto extends PickType(CustomerEntity, [

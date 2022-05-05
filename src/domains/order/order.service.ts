@@ -3,14 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { ModelNameEnum } from '../../enums/model-name.enum';
 import { OrderStatusEnum } from '../../enums/order-status.enum';
 import { CommonService } from '../../utils/common.service';
-import { EvaService } from '../eva/eva.service';
+import { EavService } from '../eav/eav.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { ReturnOrderDto } from './dto/return-order.dto';
 import { OrderEntity } from './entities/order.entity';
 
 @Injectable()
 export class OrderService extends CommonService(OrderEntity) {
-  constructor(private readonly evaService: EvaService) {
+  constructor(private readonly evaService: EavService) {
     super();
   }
 

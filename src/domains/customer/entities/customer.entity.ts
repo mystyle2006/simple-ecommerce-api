@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { CommonEntity } from '../../../utils/common.entity';
-import { EntityEntity } from '../../eva/entities/entity.entity';
+import { EntityEntity } from '../../eav/entities/entity.entity';
 
 @Entity('customer')
 export class CustomerEntity extends CommonEntity {
