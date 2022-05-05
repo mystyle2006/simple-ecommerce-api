@@ -1,5 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 
+import { GetAttributeValueDto } from '../../eva/dto/get-attribute-value.dto';
 import { OrderEntity } from '../entities/order.entity';
 
 export class CreateOrderDto extends PickType(OrderEntity, [
@@ -8,4 +9,6 @@ export class CreateOrderDto extends PickType(OrderEntity, [
   'status',
   'price',
   'products',
-] as const) {}
+] as const) {
+  customData: GetAttributeValueDto[];
+}

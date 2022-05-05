@@ -1,17 +1,43 @@
 import { Injectable } from '@nestjs/common';
 
+import { ModelNameEnum } from '../../enums/model-name.enum';
 import { OrderStatusEnum } from '../../enums/order-status.enum';
 import { CommonService } from '../../utils/common.service';
+import { EvaService } from '../eva/eva.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { ReturnOrderDto } from './dto/return-order.dto';
 import { OrderEntity } from './entities/order.entity';
 
 @Injectable()
 export class OrderService extends CommonService(OrderEntity) {
-  async create(input: CreateOrderDto): Promise<OrderEntity> {
-    return this.repository.save({
-      ...input,
+  constructor(private readonly evaService: EvaService) {
+    super();
+  }
+
+  async create({
+    customData,
+    ...leftover
+  }: CreateOrderDto): Promise<ReturnOrderDto> {
+    const order = await this.repository.save({
+      ...leftover,
       status: OrderStatusEnum.OK,
     } as OrderEntity);
+    const { entity_id, result: customDataResult } =
+      await this.evaService.createCustomData({
+        data: customData,
+        store_id: leftover.store_id,
+        modelName: ModelNameEnum.ORDER,
+      });
+
+    if (entity_id) {
+      await this.repository.update(order.id, { entity_id });
+    }
+
+    return {
+      ...order,
+      entity_id,
+      customData: customDataResult,
+    };
   }
 
   async findAll(): Promise<OrderEntity[]> {

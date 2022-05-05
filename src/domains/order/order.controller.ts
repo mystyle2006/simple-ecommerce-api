@@ -19,6 +19,12 @@ export class OrderController {
         customer_id: '',
         price: 0,
         products: [],
+        customData: [
+          {
+            attribute_id: 0,
+            value: '',
+          },
+        ],
       },
     },
   })

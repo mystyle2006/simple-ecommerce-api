@@ -14,6 +14,9 @@ export class OrderEntity extends CommonEntity {
   store_id: number;
 
   @Column()
+  entity_id: number;
+
+  @Column()
   @IsNotEmpty()
   customer_id: number;
 
